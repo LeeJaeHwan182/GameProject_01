@@ -6,12 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Input KeyCodes")]
     [SerializeField] private KeyCode keyCodeRun = KeyCode.LeftShift; //달리기 키
-    [Header("Input KeyCodes")]
     [SerializeField] private KeyCode keyCodeJump = KeyCode.Space; //점프 키
+    [SerializeField] private KeyCode keyCodeReload = KeyCode.R; //탄 재장전 키
 
     private RotateToMouse rotateToMouse; // 마우스 이동으로 카메라 회전
     private MovementCharacterController movement; // 키보드 입력으로 플레이어 이동, 점프
     private Status status;
+    private WeaponAssaultRifle weapon; //무기를 이용한 공격 제어
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
         rotateToMouse = GetComponent<RotateToMouse>();
         movement = GetComponent<MovementCharacterController>();
         status = GetComponent<Status>();
+        weapon = GetComponentInChildren<WeaponAssaultRifle>();
     }
 
     private void Update()
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
         UpdateRotate();
         UpdateMove();
         UpdateJump();
+        UpdateWeaponAction();
     }
 
     private void UpdateRotate()
@@ -62,6 +65,25 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(keyCodeJump))
         {
             movement.Jump();
+        }
+    }
+
+    private void UpdateWeaponAction()
+    {
+        if(CameraController.On_Off == false)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                weapon.StartWeaponAction();
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                weapon.StopWeaponAction();
+            }
+            if (Input.GetKeyDown(keyCodeReload))
+            {
+                weapon.StartReload();
+            }
         }
     }
 }
