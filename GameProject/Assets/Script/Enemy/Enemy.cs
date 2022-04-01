@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
+    [HideInInspector]
     public float speed = 10f;
+
+    public float startHealth = 100;
+    private float health;
+
+    [Header("Unity Stuff")]
+    public Image healthBar;
 
     private Transform target;
     private int wavepointIndex = 0;
@@ -13,6 +20,24 @@ public class Enemy : MonoBehaviour
     {
         //처음 갈곳구하기
         target = Waypoints.points[0];
+        health = startHealth;
+    }
+
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+
+        healthBar.fillAmount = health / startHealth;
+
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
     }
 
     private void Update()
