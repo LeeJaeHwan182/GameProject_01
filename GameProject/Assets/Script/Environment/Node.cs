@@ -25,6 +25,21 @@ public class Node : MonoBehaviour
         buildManager = BuildManager.instance;
     }
 
+    private void Update()
+    {
+        if(!CameraController.On_Off)
+        {
+            if(rend.material.color == hoverColor)
+            {
+                rend.material.color = startColor;
+            }
+            else if(rend.material.color == notEnoughMoneyColor)
+            {
+                rend.material.color = startColor;
+            }        
+        }
+    }
+
     public Vector3 GetBuildPosition()
     {
         return transform.position + positionOffset;
