@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
             {
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
+                BuildManager.instance.ResetCamera();
                 On_Off = true;
                 MainCamera.SetActive(true);
                 PlayerCamera.SetActive(false);

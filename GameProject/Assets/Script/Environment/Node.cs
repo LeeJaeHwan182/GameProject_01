@@ -9,8 +9,12 @@ public class Node : MonoBehaviour
     public Vector3 positionOffset;
     public Color notEnoughMoneyColor;
 
-    [Header("Optional")]
+    [HideInInspector]
     public GameObject turret;
+    [HideInInspector]
+    public TurretBlueprint turretBlueprint;
+    [HideInInspector]
+    public bool isUpgraded = false;
 
     private Renderer rend;
     private Color startColor;
@@ -53,17 +57,65 @@ public class Node : MonoBehaviour
             {
                 return;
             }
+
+            if (turret != null)
+            {
+                buildManager.SelectNode(this);
+                return;
+            }
+
             if (!buildManager.CanBuild)
             {
                 return;
             }
-            if (turret != null)
-            {
-                return;
-            }
 
-            buildManager.BuildTurretOn(this);
+            BuildTurret(buildManager.GetTurretToBuild());
         }
+    }
+
+    void BuildTurret(TurretBlueprint blueprint)
+    {
+        if (PlayerStats.Money < blueprint.cost)
+        {
+            return;
+        }
+
+        turretBlueprint = blueprint;
+
+        PlayerStats.Money -= blueprint.cost;
+
+        GameObject _turret = (GameObject)Instantiate(blueprint.prefab, GetBuildPosition(), Quaternion.identity);
+        turret = _turret;
+
+    }
+
+    public void UpgradeTurret()
+    {
+        if (PlayerStats.Money < turretBlueprint.upgradeCost)
+        {
+            return;
+        }
+
+        PlayerStats.Money -= turretBlueprint.upgradeCost;
+
+        //get rid of the old turret
+        Destroy(turret);
+
+        //build a new one
+        GameObject _turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
+        turret = _turret;
+
+        isUpgraded = true;
+    }
+
+    public void SellTurret()
+    {
+        PlayerStats.Money += turretBlueprint.GetSellAmount();
+
+        //spawn a cool effect
+
+        Destroy(turret);
+        turretBlueprint = null;
     }
 
     private void OnMouseEnter()
