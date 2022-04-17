@@ -33,4 +33,23 @@ public class CameraController : MonoBehaviour
             }
         }
     }
+
+    public void GameOver()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        BuildManager.instance.ResetCamera();
+        On_Off = true;
+        MainCamera.SetActive(true);
+        PlayerCamera.SetActive(false);
+    }
+
+    public void ResetGame()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        On_Off = false;
+        MainCamera.SetActive(false);
+        PlayerCamera.SetActive(true);
+    }
 }

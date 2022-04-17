@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     public float startHealth = 100;
     private float health;
 
+    public int value = 50;
+
     [Header("Unity Stuff")]
     public Image healthBar;
 
@@ -37,6 +39,8 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        PlayerStats.Money += value;
+
         Destroy(gameObject);
     }
 
@@ -57,10 +61,16 @@ public class Enemy : MonoBehaviour
     {
         if(wavepointIndex >= Waypoints.points.Length - 1)
         {
-            Destroy(gameObject);
+            EndPath();
             return;
         }
         wavepointIndex++;
         target = Waypoints.points[wavepointIndex];
+    }
+
+    void EndPath()
+    {
+        PlayerStats.Lives--;
+        Destroy(gameObject);
     }
 }
