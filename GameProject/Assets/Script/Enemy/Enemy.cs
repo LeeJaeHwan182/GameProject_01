@@ -71,6 +71,11 @@ public class Enemy : MonoBehaviour
     void EndPath()
     {
         PlayerStats.Lives--;
+        if(PlayerStats.Lives > 0)
+        {
+            GameObject heartsystem = GameObject.Find("Fames");
+            heartsystem.GetComponent<HeartSystem>().TakeDamage();
+        }
         Destroy(gameObject);
     }
 }
