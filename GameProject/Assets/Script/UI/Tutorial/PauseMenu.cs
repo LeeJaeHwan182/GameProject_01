@@ -45,6 +45,9 @@ public class PauseMenu : MonoBehaviour
 
     public void Menu()
     {
-        Debug.Log("Go to menu");
+        SceneManager.LoadScene("Menu");
+        TextBox.GAMESTART = false;
+        Time.timeScale = 1f;
+        CameraController.On_Off = false;
     }
 }
