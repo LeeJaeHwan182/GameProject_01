@@ -139,4 +139,5 @@ public class WeaponAssaultRifle : MonoBehaviour
         weaponSetting.currentAmmo--;
         onAmmoEvent.Invoke(weaponSetting.currentAmmo, weaponSetting.maxAmmo);
     }
+
 }

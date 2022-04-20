@@ -32,7 +32,7 @@ public class TextBox : MonoBehaviour
     {
         ShowDialogue();
         timer = 0;
-        waitingTime = 5;
+        waitingTime = 1;
     }
 
     public void ShowDialogue()
