@@ -353,7 +353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2656838654361442943}
   - component: {fileID: 4628032771437121210}
-  - component: {fileID: 6163423822762538979}
+  - component: {fileID: 426791784091086145}
   m_Layer: 0
   m_Name: Range
   m_TagString: Dol
@@ -383,8 +383,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2730302647525548477}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!135 &6163423822762538979
-SphereCollider:
+--- !u!65 &426791784091086145
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -394,8 +394,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 15
-  m_Center: {x: 0, y: 15, z: 0}
+  m_Size: {x: 30, y: 0.5, z: 30}
+  m_Center: {x: 0, y: 13.5, z: 0}
 --- !u!1 &5908391341526070767
 GameObject:
   m_ObjectHideFlags: 0

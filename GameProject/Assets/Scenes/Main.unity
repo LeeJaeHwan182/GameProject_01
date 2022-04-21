@@ -13852,12 +13852,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstTurret:
-    prefab: {fileID: 1169149813197251997, guid: 60d4cb61e100a564d9a67c58b364211a, type: 3}
+    prefab: {fileID: 399895356156007615, guid: 45c78b85d9bd47f47a774e20f6317a08, type: 3}
     cost: 100
     upgradedPrefab: {fileID: 1169149813197251997, guid: 76309f50b713d9347ad04a1b288a718d, type: 3}
     upgradeCost: 60
   SecondTurret:
-    prefab: {fileID: 399895356156007615, guid: 45c78b85d9bd47f47a774e20f6317a08, type: 3}
+    prefab: {fileID: 5406777665794876773, guid: 518ed3c0d8ebb404183fa27add7eebf5, type: 3}
     cost: 200
     upgradedPrefab: {fileID: 1169149813197251997, guid: 76309f50b713d9347ad04a1b288a718d, type: 3}
     upgradeCost: 100

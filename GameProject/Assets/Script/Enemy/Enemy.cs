@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     private Transform target;
     private int wavepointIndex = 0;
 
+    public GameObject WhaleSkills;
+
     private void Start()
     {
         //처음 갈곳구하기
@@ -79,4 +81,15 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void WhaleSkill()
+    {
+        StartCoroutine(skill());
+    }
+
+    IEnumerator skill()
+    {
+        WhaleSkills.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        WhaleSkills.SetActive(false);
+    }
 }
