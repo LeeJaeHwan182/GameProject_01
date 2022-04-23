@@ -10,7 +10,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform spawnPoint;
 
     public float timeBetweenWaves = 5f;
-    private float countdown = 2f;
+    public float countdown = 5f;
 
     //UI
     public Text waveCountdownText;
@@ -19,22 +19,28 @@ public class WaveSpawner : MonoBehaviour
 
     private void Update()
     {
-        //카운트 다운 종료시 생성
-        if(countdown <= 0f)
+        if(TextBox.GAMESTART == true)
         {
-            StartCoroutine(SpawnWave());
-            countdown = timeBetweenWaves;
-        }
+            //카운트 다운 종료시 생성
+            if (countdown <= 0f)
+            {
+                StartCoroutine(SpawnWave());
+                countdown = timeBetweenWaves;
+            }
 
-        countdown -= Time.deltaTime;
+            countdown -= Time.deltaTime;
 
-        waveCountdownText.text = Mathf.Round(countdown).ToString();
+            countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
+
+            waveCountdownText.text = string.Format("{0:00.00}", countdown);
+        }     
     }
 
     //몬스터 몇명생성
     IEnumerator SpawnWave()
     {
         waveIndex++;
+        PlayerStats.Rounds++;
 
         for (int i = 0; i < waveIndex; i++)
         {
