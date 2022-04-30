@@ -99,7 +99,8 @@ public class Node : MonoBehaviour
         PlayerStats.Money -= turretBlueprint.upgradeCost;
 
         //get rid of the old turret
-        Destroy(turret);
+        turret.transform.GetChild(0).gameObject.GetComponent<Turret>().Sell_Upgrade();
+        Destroy(turret,2);
 
         //build a new one
         GameObject _turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
@@ -113,8 +114,8 @@ public class Node : MonoBehaviour
         PlayerStats.Money += turretBlueprint.GetSellAmount();
 
         //spawn a cool effect
-
-        Destroy(turret);
+        turret.transform.GetChild(0).gameObject.GetComponent<Turret>().Sell_Upgrade();
+        Destroy(turret,2);
         turretBlueprint = null;
     }
 

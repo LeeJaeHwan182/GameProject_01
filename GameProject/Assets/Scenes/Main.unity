@@ -13852,7 +13852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstTurret:
-    prefab: {fileID: 399895356156007615, guid: 45c78b85d9bd47f47a774e20f6317a08, type: 3}
+    prefab: {fileID: 6809463956045142442, guid: eb47600555a86064aaf1e5066d67c364, type: 3}
     cost: 100
     upgradedPrefab: {fileID: 1169149813197251997, guid: 76309f50b713d9347ad04a1b288a718d, type: 3}
     upgradeCost: 60

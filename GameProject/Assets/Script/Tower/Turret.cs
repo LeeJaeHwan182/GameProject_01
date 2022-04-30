@@ -6,6 +6,10 @@ public class Turret : MonoBehaviour
 {
     private Transform target;
 
+    private Animator ani;
+
+    bool Destroy = false;
+
     [Header("Attributes")]
     public float range = 15f;
     public float fireRate = 1f;
@@ -22,6 +26,7 @@ public class Turret : MonoBehaviour
 
     private void Start()
     {
+        ani = GetComponent<Animator>();
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -49,23 +54,28 @@ public class Turret : MonoBehaviour
 
     private void Update()
     {
-        if(target == null)
+        if(Destroy == false)
         {
-            return;
-        }
+            if (target == null)
+            {
+                ani.SetInteger("Pos", 0); //대상없음
+                return;
+            }
 
-        Vector3 dir = target.position - transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-        partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+            ani.SetInteger("Pos", 1);
+            Vector3 dir = target.position - transform.position;
+            Quaternion lookRotation = Quaternion.LookRotation(dir);
+            Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+            partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-        if(fireCountdown <= 0f)
-        {
-            Shoot();
-            fireCountdown = 1f / fireRate;
-        }
+            if (fireCountdown <= 0f)
+            {
+                Shoot();
+                fireCountdown = 1f / fireRate;
+            }
 
-        fireCountdown -= Time.deltaTime;
+            fireCountdown -= Time.deltaTime;
+        }      
     }
 
     void Shoot()
@@ -77,6 +87,12 @@ public class Turret : MonoBehaviour
         {
             bullet.Seek(target);
         }
+    }
+
+    public void Sell_Upgrade()
+    {
+        Destroy = true;
+        ani.SetInteger("Pos", 2);
     }
 
     private void OnDrawGizmosSelected()
