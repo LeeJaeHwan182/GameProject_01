@@ -50,7 +50,7 @@ public class DolDolTurret : MonoBehaviour
     {
         if (Destroy == false)
         {
-            if (target == null)
+            if(target == null)
             {
                 ani.SetInteger("Pos", 0); //대상없음
                 RangePrefab.SetActive(false);

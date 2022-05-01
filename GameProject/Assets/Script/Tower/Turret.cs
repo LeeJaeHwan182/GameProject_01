@@ -70,7 +70,7 @@ public class Turret : MonoBehaviour
 
             if (fireCountdown <= 0f)
             {
-                Shoot();
+                //Shoot();
                 fireCountdown = 1f / fireRate;
             }
 
@@ -78,7 +78,7 @@ public class Turret : MonoBehaviour
         }      
     }
 
-    void Shoot()
+    public void Shoot()
     {
         GameObject bulletGo = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGo.GetComponent<Bullet>();

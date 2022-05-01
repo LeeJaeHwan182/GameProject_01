@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492bb31950db1464fab428e8da45f7bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMoney: 400
+  startMoney: 800
   startLives: 5
 --- !u!114 &278923762
 MonoBehaviour:
@@ -4871,11 +4871,15 @@ MonoBehaviour:
     cost: 100
     upgradedPrefab: {fileID: 4247209695722910655, guid: bb71d64c78438074ea801f1db9c06dc5, type: 3}
     upgradeCost: 60
+    upupgradedPrefab: {fileID: 5612169318214865829, guid: eb47600555a86064aaf1e5066d67c364, type: 3}
+    upupgradeCost: 120
   SecondTurret:
     prefab: {fileID: 3559964639097206733, guid: e154665109cad60499157a44f1a020d2, type: 3}
     cost: 100
     upgradedPrefab: {fileID: 5616066318270484375, guid: 4b76a2065d689534bb8b4611bc6beb4d, type: 3}
     upgradeCost: 50
+    upupgradedPrefab: {fileID: 8902557939766216440, guid: f08cfd5d8e2bbfd4aa5d8de2a07e0df2, type: 3}
+    upupgradeCost: 100
 --- !u!114 &1360658059
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class Node : MonoBehaviour
     public Vector3 positionOffset;
     public Color notEnoughMoneyColor;
 
+    public int count = 0;
+
     [HideInInspector]
     public GameObject turret;
     [HideInInspector]
@@ -110,16 +112,25 @@ public class Node : MonoBehaviour
         Destroy(turret,2);
 
         //build a new one
-        GameObject _turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
-        turret = _turret;
+        if(count == 0)
+        {
+            count++;
+            GameObject _turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
+            turret = _turret;
+        }
+        else if(count == 1)
+        {
+            GameObject _turret = (GameObject)Instantiate(turretBlueprint.upupgradedPrefab, GetBuildPosition(), Quaternion.identity);
+            turret = _turret;
+            isUpgraded = true;
+        }
 
-        isUpgraded = true;
     }
 
     public void SellTurret()
     {
         PlayerStats.Money += turretBlueprint.GetSellAmount();
-
+        count = 0;
         //spawn a cool effect
         if (turret.transform.GetChild(0).gameObject.GetComponent<Turret>())
         {
@@ -130,6 +141,7 @@ public class Node : MonoBehaviour
             turret.transform.GetChild(0).gameObject.GetComponent<DolDolTurret>().Sell_Upgrade();
         }
         Destroy(turret,2);
+        isUpgraded = false;
         turretBlueprint = null;
     }
 
