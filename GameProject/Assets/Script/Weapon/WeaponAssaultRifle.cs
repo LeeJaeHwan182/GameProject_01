@@ -25,11 +25,13 @@ public class WeaponAssaultRifle : MonoBehaviour
     [SerializeField]
     private GameObject Bulletspot; //총알나오는위치
 
+    private PlayerAnimatorController animator;
 
     private void Awake()
     {
         // 처음 탄 수는 최대로 설정
         weaponSetting.currentAmmo = weaponSetting.maxAmmo;
+        animator = GetComponentInParent<PlayerAnimatorController>();
     }
 
     //외부에서 필요한 정보를 열람하기 위해 정의한 Get Property's
@@ -44,7 +46,10 @@ public class WeaponAssaultRifle : MonoBehaviour
     public void StartWeaponAction(int type = 0)
     {
         // 재장전 중일 때는 무기 액션을 할수없다
-        if (isReload == true) return;
+        if (isReload == true)
+        {
+            return;
+        }
 
         //마우스 왼쪽 클릭(공격 시작)
         if(type == 0)
@@ -65,32 +70,41 @@ public class WeaponAssaultRifle : MonoBehaviour
     public void StartReload()
     {
         // 현재 재장전 중이면 재장전 불가능
-        if (isReload == true) return;
+        if (isReload == true)
+        {
+            return;
+        }
 
         // 무기 액션 도중에 'R'키를 눌러 재장전을 시도하면 무기 액션 종료 후 재장전
         StopWeaponAction();
 
         weaponSetting.currentAmmo = weaponSetting.maxAmmo;
-        onAmmoEvent.Invoke(weaponSetting.currentAmmo, weaponSetting.maxAmmo);
-        //StartCoroutine("OnReload");    일단 애니메이션없어서 주석처리
+        //onAmmoEvent.Invoke(weaponSetting.currentAmmo, weaponSetting.maxAmmo);
+        StartCoroutine("OnReload");
     }
 
     private IEnumerator OnReload()
     {
         isReload = true;
 
+        animator.OnReload();
         // 재장전 애니메이션, 사운드 재생
 
-        while (true)
+        while(true)
         {
             // 사운드 재생중이 아니고, 현재 애니메이션이 MoveMent이면
             // 재장전 애니메이션(, 사운드) 재생이 종료되었다는 뜻
-            isReload = false;
+            if(animator.CurrentAnimationIs("Movement"))
+            {
+                isReload = false;
 
-            //현재 탄수를 최대로 설정하고, 바뀐 탄 수 정보를 Text UI에 업데이트
-            weaponSetting.currentAmmo = weaponSetting.maxAmmo;
-            onAmmoEvent.Invoke(weaponSetting.currentAmmo, weaponSetting.maxAmmo);
+                //현재 탄수를 최대로 설정하고, 바뀐 탄 수 정보를 Text UI에 업데이트
+                weaponSetting.currentAmmo = weaponSetting.maxAmmo;
+                onAmmoEvent.Invoke(weaponSetting.currentAmmo, weaponSetting.maxAmmo);
 
+                yield break;
+            }
+            
             yield return null;
         }
 
@@ -124,6 +138,8 @@ public class WeaponAssaultRifle : MonoBehaviour
             //공격주기가 되어야 공격할 수 있도록 하기 위해 현재 시간 저장
             lastAttackTime = Time.time;
 
+
+            animator.Play("Fire", -1, 0);
         }
         // 탄 수가 없으면 공격 불가능
         if(weaponSetting.currentAmmo <= 0)

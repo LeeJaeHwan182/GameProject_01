@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class CircleGauge : MonoBehaviour
 {
     public Image healthBar;
-    float maxHealth = 5f;
+    float maxHealth = 10f;
     public WaveSpawner timer;
 
     private void Start()

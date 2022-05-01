@@ -6,6 +6,10 @@ public class DolDolTurret : MonoBehaviour
 {
     private Transform target;
 
+    private Animator ani;
+
+    bool Destroy = false;
+
     [Header("Attributes")]
     public float range = 15f;
 
@@ -16,6 +20,7 @@ public class DolDolTurret : MonoBehaviour
 
     private void Start()
     {
+        ani = GetComponent<Animator>();
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -43,13 +48,24 @@ public class DolDolTurret : MonoBehaviour
 
     private void Update()
     {
-        if (target == null)
+        if (Destroy == false)
         {
-            RangePrefab.SetActive(false);
-            return;
-        }
+            if (target == null)
+            {
+                ani.SetInteger("Pos", 0); //대상없음
+                RangePrefab.SetActive(false);
+                return;
+            }
 
-        RangePrefab.SetActive(true);
+            ani.SetInteger("Pos", 1);
+            RangePrefab.SetActive(true);
+        } 
+    }
+
+    public void Sell_Upgrade()
+    {
+        Destroy = true;
+        ani.SetInteger("Pos", 2);
     }
 
     private void OnDrawGizmosSelected()

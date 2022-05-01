@@ -99,7 +99,14 @@ public class Node : MonoBehaviour
         PlayerStats.Money -= turretBlueprint.upgradeCost;
 
         //get rid of the old turret
-        turret.transform.GetChild(0).gameObject.GetComponent<Turret>().Sell_Upgrade();
+        if(turret.transform.GetChild(0).gameObject.GetComponent<Turret>())
+        {
+            turret.transform.GetChild(0).gameObject.GetComponent<Turret>().Sell_Upgrade();
+        }
+        else if(turret.transform.GetChild(0).gameObject.GetComponent<DolDolTurret>())
+        {
+            turret.transform.GetChild(0).gameObject.GetComponent<DolDolTurret>().Sell_Upgrade();
+        }
         Destroy(turret,2);
 
         //build a new one
@@ -114,7 +121,14 @@ public class Node : MonoBehaviour
         PlayerStats.Money += turretBlueprint.GetSellAmount();
 
         //spawn a cool effect
-        turret.transform.GetChild(0).gameObject.GetComponent<Turret>().Sell_Upgrade();
+        if (turret.transform.GetChild(0).gameObject.GetComponent<Turret>())
+        {
+            turret.transform.GetChild(0).gameObject.GetComponent<Turret>().Sell_Upgrade();
+        }
+        else if (turret.transform.GetChild(0).gameObject.GetComponent<DolDolTurret>())
+        {
+            turret.transform.GetChild(0).gameObject.GetComponent<DolDolTurret>().Sell_Upgrade();
+        }
         Destroy(turret,2);
         turretBlueprint = null;
     }
